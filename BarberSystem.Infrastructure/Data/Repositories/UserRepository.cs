@@ -1,4 +1,5 @@
-﻿using BarberSystem.Domain.Entities;
+﻿using BarberSystem.Application.DTOs.Response;
+using BarberSystem.Domain.Entities;
 using BarberSystem.Domain.Interface.Repositories;
 using BarberSystem.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -25,5 +26,13 @@ namespace BarberSystem.Infrastructure.Data.Repositories
 
         public async Task<User?> GetById(int id)
             => await _context.users.FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<User?> GetByIdWithWorkSchedule(int id)
+            => await _context.users
+            .Include(x => x.WorkSchedule)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        public void Update(User user)
+            => _context.users.Update(user);
     }
 }

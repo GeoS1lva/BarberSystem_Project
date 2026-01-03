@@ -13,5 +13,6 @@ namespace BarberSystem.Domain.Interface.Repositories
         public Task<bool> ValidateCustomer(int customerId);
         public Task<bool> ValidateCustomerCpf(string cpf);
         public Task<Customer?> GetById(int id);
+        public void Update(Customer customer);
     }
 }

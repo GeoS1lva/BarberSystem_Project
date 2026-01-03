@@ -10,15 +10,17 @@ namespace BarberSystem.Domain.Entities
     public class SchedulingService : EntityBase
     {
         public int SchedulingId { get; set; }
+
         public int ServiceProvidedId { get; set; }
+        public ServiceProvided ServiceProvided { get; set; }
 
         public double PriceAtMoment { get; private set; }
         public TimeOnly DurationAtMoment { get; private set; }
 
-        public SchedulingService(int schedulingId, int serviceId, double price, TimeOnly duration)
+        public SchedulingService(int schedulingId, ServiceProvided service, double price, TimeOnly duration)
         {
             SchedulingId = schedulingId;
-            ServiceProvidedId = serviceId;
+            ServiceProvided = service;
             PriceAtMoment = price;
             DurationAtMoment = duration;
         }

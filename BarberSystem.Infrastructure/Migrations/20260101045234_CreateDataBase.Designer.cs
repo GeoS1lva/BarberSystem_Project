@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20251218162048_UpdateDatabase")]
-    partial class UpdateDatabase
+    [Migration("20260101045234_CreateDataBase")]
+    partial class CreateDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,9 +200,6 @@ namespace BarberSystem.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WorkScheduleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdentitySystemId")
@@ -354,11 +351,13 @@ namespace BarberSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BarberSystem.Domain.Entities.ServiceProvided", null)
+                    b.HasOne("BarberSystem.Domain.Entities.ServiceProvided", "ServiceProvided")
                         .WithMany("Services")
                         .HasForeignKey("ServiceProvidedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ServiceProvided");
                 });
 
             modelBuilder.Entity("BarberSystem.Domain.Entities.User", b =>
@@ -435,8 +434,7 @@ namespace BarberSystem.Infrastructure.Migrations
                 {
                     b.Navigation("Schedulings");
 
-                    b.Navigation("WorkSchedule")
-                        .IsRequired();
+                    b.Navigation("WorkSchedule");
                 });
 #pragma warning restore 612, 618
         }

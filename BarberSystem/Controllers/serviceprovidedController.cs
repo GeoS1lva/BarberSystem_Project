@@ -1,5 +1,6 @@
 ﻿using BarberSystem.Application.DTOs.Request;
 using BarberSystem.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace BarberSystem.Controllers
     public class serviceprovidedController(IServiceProvidedAppService serviceProvidedAppService) : ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> Register(CreateServiceProvidedRequest newServiceProvided)
         {
             var result = await serviceProvidedAppService.CreateAsync(newServiceProvided);

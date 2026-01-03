@@ -25,5 +25,8 @@ namespace BarberSystem.Infrastructure.Data.Repositories
         
         public async Task<Customer?> GetById(int id)
             => await _context.customers.FirstOrDefaultAsync(x => x.Id == id);
+
+        public void Update(Customer customer)
+            => _context.customers.Update(customer);
     }
 }

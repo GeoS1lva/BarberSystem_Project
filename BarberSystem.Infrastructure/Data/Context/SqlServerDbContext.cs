@@ -81,7 +81,7 @@ namespace BarberSystem.Infrastructure.Data.Context
 
             modelBuilder.Entity<WorkSchedule>()
                 .HasOne(u => u.User)
-                .WithOne()
+                .WithOne(u => u.WorkSchedule)
                 .HasForeignKey<WorkSchedule>(w => w.UserId)
                 .IsRequired();
 
@@ -100,8 +100,13 @@ namespace BarberSystem.Infrastructure.Data.Context
                 s.HasMany(sc => sc.ServicesProvided)
                 .WithMany(sc => sc.Schedulings)
                 .UsingEntity<SchedulingService>(
-                    sp => sp.HasOne<ServiceProvided>().WithMany(x => x.Services),
-                    sc => sc.HasOne<Scheduling>().WithMany(x => x.Services));
+                    sp => sp.HasOne(x => x.ServiceProvided)
+                    .WithMany(x => x.Services)
+                    .HasForeignKey(sp => sp.ServiceProvidedId),
+
+
+                    sc => sc.HasOne<Scheduling>()
+                    .WithMany(x => x.Services));
             });
 
             modelBuilder.Entity<ServiceProvided>(s =>

@@ -29,28 +29,34 @@ namespace BarberSystem.Domain.Entities
 
         public static ResultPattern<Customer> Create(string name, string surname, Cpf cpf, string contact, IdentitySystem identitySystem)
         {
-            if (string.IsNullOrEmpty(name))
-                return ResultPattern<Customer>.Failure("Nome não pode ser nulo!");
+            if (string.IsNullOrEmpty(name) || name.Length < 2)
+                return ResultPattern<Customer>.Failure("Nome Inválido");
 
-            if (name.Length < 2)
-                return ResultPattern<Customer>.Failure("Nome precisa ter ao menos 3 caracteres");
+            if (string.IsNullOrEmpty(surname) || surname.Length < 2)
+                return ResultPattern<Customer>.Failure("Sobrenome Inválido");
 
-            if (string.IsNullOrEmpty(surname))
-                return ResultPattern<Customer>.Failure("Sobrenome não pode ser nulo!");
-
-            if (surname.Length < 2)
-                return ResultPattern<Customer>.Failure("Sobrenome precisa ter ao menos 3 caracteres");
-
-            if (string.IsNullOrEmpty(contact))
-                return ResultPattern<Customer>.Failure("Contato não pode ser nulo!");
-
-            if (contact.Length < 11)
+            if (string.IsNullOrEmpty(contact) || contact.Length < 11)
                 return ResultPattern<Customer>.Failure("Contato inválido!");
 
-            if (identitySystem == null)
-                return ResultPattern<Customer>.Failure("Identidade de Login inválida!");
-
             return ResultPattern<Customer>.Success(new Customer(name, surname, cpf, contact, identitySystem));
+        }
+
+        public ResultPattern<Customer> Update(string name, string surname, string contact)
+        {
+            if (string.IsNullOrEmpty(name) || name.Length < 2)
+                return ResultPattern<Customer>.Failure("Nome Inválido");
+
+            if (string.IsNullOrEmpty(surname) || surname.Length < 2)
+                return ResultPattern<Customer>.Failure("Sobrenome Inválido");
+
+            if (string.IsNullOrEmpty(contact) || contact.Length < 11)
+                return ResultPattern<Customer>.Failure("Contato inválido!");
+
+            Name = name;
+            Surname = surname;
+            Contact = contact;
+
+            return ResultPattern<Customer>.Success(this);
         }
 
         protected Customer() { }

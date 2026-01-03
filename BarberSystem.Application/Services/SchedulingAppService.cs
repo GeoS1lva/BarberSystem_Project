@@ -1,6 +1,7 @@
 ﻿using BarberSystem.Application.DTOs.Request;
 using BarberSystem.Application.DTOs.Response;
 using BarberSystem.Application.Interfaces;
+using BarberSystem.Application.Interfaces.Queries;
 using BarberSystem.Domain.Common;
 using BarberSystem.Domain.Entities;
 using BarberSystem.Domain.Interface.Repositories;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BarberSystem.Application.Services
 {
-    public class SchedulingAppService(IUnitOfWork unitOfWork, ISchedulingS schedulingS) : ISchedulingAppService
+    public class SchedulingAppService(IUnitOfWork unitOfWork, ISchedulingS schedulingS, ISchedulingQueries schedulingQueries) : ISchedulingAppService
     {
         public async Task<ResultPattern<SchedulingResponse>> CreateAsync(SchedulingRequest schedulingRequest)
         {
@@ -53,6 +54,40 @@ namespace BarberSystem.Application.Services
                 }).ToList(),
                 TotalValue = result.Value.TotalValue
             });
+        }
+
+        public async Task<ResultPattern> CancelAsync(int idScheduling)
+        {
+            var scheduling = await unitOfWork.SchedulingRepository.GetById(idScheduling);
+
+            if (scheduling == null)
+                return ResultPattern.Failure("Agendamento não encontrado!");
+
+            scheduling.CancelScheduling();
+
+            await unitOfWork.SaveChangesAsync();
+
+            return ResultPattern.Success();
+        }
+
+        public async Task<ResultPattern<List<SchedulingResponse>>> GetAllByCustomer(int customerId)
+        {
+            var result = await schedulingQueries.GetAllBySchedulingCustomer(customerId);
+
+            if (result.Count == 0)
+                return ResultPattern<List<SchedulingResponse>>.Failure("Nenhum agendamento encontrado!");
+
+            return ResultPattern<List<SchedulingResponse>>.Success(result);
+        }
+
+        public async Task<ResultPattern<List<SchedulingResponse>>> GetAllByUser(int userId)
+        {
+            var result = await schedulingQueries.GetAllBySchedulingUser(userId);
+
+            if (result.Count == 0)
+                return ResultPattern<List<SchedulingResponse>>.Failure("Nenhum agendamento encontrado!");
+
+            return ResultPattern<List<SchedulingResponse>>.Success(result);
         }
     }
 }

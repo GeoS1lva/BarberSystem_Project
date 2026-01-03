@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BarberSystem.Application.DTOs.Response
+﻿namespace BarberSystem.Application.DTOs.Response
 {
     public class SchedulingServiceResponse
     {

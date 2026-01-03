@@ -348,11 +348,13 @@ namespace BarberSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BarberSystem.Domain.Entities.ServiceProvided", null)
+                    b.HasOne("BarberSystem.Domain.Entities.ServiceProvided", "ServiceProvided")
                         .WithMany("Services")
                         .HasForeignKey("ServiceProvidedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ServiceProvided");
                 });
 
             modelBuilder.Entity("BarberSystem.Domain.Entities.User", b =>
@@ -395,7 +397,7 @@ namespace BarberSystem.Infrastructure.Migrations
             modelBuilder.Entity("BarberSystem.Domain.Entities.WorkSchedule", b =>
                 {
                     b.HasOne("BarberSystem.Domain.Entities.User", "User")
-                        .WithOne()
+                        .WithOne("WorkSchedule")
                         .HasForeignKey("BarberSystem.Domain.Entities.WorkSchedule", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -428,6 +430,8 @@ namespace BarberSystem.Infrastructure.Migrations
             modelBuilder.Entity("BarberSystem.Domain.Entities.User", b =>
                 {
                     b.Navigation("Schedulings");
+
+                    b.Navigation("WorkSchedule");
                 });
 #pragma warning restore 612, 618
         }

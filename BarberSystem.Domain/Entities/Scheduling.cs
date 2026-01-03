@@ -48,9 +48,24 @@ namespace BarberSystem.Domain.Entities
 
         private void AddService(ServiceProvided service)
         {
-            var schedulingService = new SchedulingService(0 ,service.Id, service.Value, service.ServiceTime);
+            var schedulingService = new SchedulingService(0 ,service, service.Value, service.ServiceTime);
 
             this.Services.Add(schedulingService);
+        }
+
+        public ResultPattern CancelScheduling()
+        {
+            if (Status == Status.cancelado)
+                return ResultPattern.Failure("Não foi possível finalizar a ação pois o agendamento já foi cancelado!");
+
+            Status = Status.cancelado;
+
+            return ResultPattern.Success();
+        }
+
+        public void CompletedScheduling()
+        {
+            Status = Status.concluido;
         }
 
         protected Scheduling() { }

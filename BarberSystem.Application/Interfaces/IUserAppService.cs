@@ -12,5 +12,8 @@ namespace BarberSystem.Application.Interfaces
     public interface IUserAppService
     {
         public Task<ResultPattern<CreateUserResponse>> CreateAsync(CreateUserRequest user);
+        public Task<ResultPattern<UpdateUserResponse>> UpdateAsync(UpdateUserRequest updateUser);
+        public Task<ResultPattern> UpdateWorkScheduleAsync(UpdateWorkScheduleRequest updateUser);
+        public Task<ResultPattern<List<ReturnUserResponse>>> GetAllUsersAsync();
     }
 }

@@ -30,12 +30,20 @@ namespace BarberSystem.Domain.Entities
         public static ResultPattern<IdentitySystem> Create(Email email, Password password, Roles role, ProfileType profileType)
         {
             if (role == Roles.administrator && profileType == ProfileType.client)
-                return ResultPattern<IdentitySystem>.Failure("Um Cliente não pode ter acesso Administrador!");
+                return ResultPattern<IdentitySystem>.Failure("Cliente pode somente ter perfil de Cliente!");
+
+            if (role == Roles.user && profileType == ProfileType.client)
+                return ResultPattern<IdentitySystem>.Failure("Cliente pode somente ter perfil de Cliente!");
 
             if (role == Roles.client && profileType != ProfileType.client)
                 return ResultPattern<IdentitySystem>.Failure("Cliente pode somente ter perfil de Cliente!");
 
             return ResultPattern<IdentitySystem>.Success(new IdentitySystem(email, password, role, profileType));
+        }
+
+        public void UpdateEmail(Email email)
+        {
+            Email = email;
         }
 
         protected IdentitySystem() { }

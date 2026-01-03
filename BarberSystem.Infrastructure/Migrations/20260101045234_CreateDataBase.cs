@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BarberSystem.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatingDataBasesAndTables : Migration
+    public partial class CreateDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,7 +77,6 @@ namespace BarberSystem.Infrastructure.Migrations
                     HiringDate = table.Column<DateOnly>(type: "date", nullable: false),
                     DismissalDate = table.Column<DateOnly>(type: "date", nullable: true),
                     IdentitySystemId = table.Column<int>(type: "int", nullable: false),
-                    WorkScheduleId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CPF = table.Column<string>(type: "nchar(11)", fixedLength: true, maxLength: 11, nullable: false),

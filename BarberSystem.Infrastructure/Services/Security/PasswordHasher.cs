@@ -26,7 +26,7 @@ namespace BarberSystem.Infrastructure.Services.Security
         {
             byte[] newHash = GeneratePasswordInternal(salt, attempt);
 
-            return newHash.SequenceEqual(newHash);
+            return newHash.SequenceEqual(hash);
         }
     }
 }

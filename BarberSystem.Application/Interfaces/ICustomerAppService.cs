@@ -12,5 +12,7 @@ namespace BarberSystem.Application.Interfaces
     public interface ICustomerAppService
     {
         public Task<ResultPattern<CreateCustomerResponse>> CreateAsync(CreateCustomerRequest customer);
+        public Task<ResultPattern<UpdateCustomerResponse>> UpdateAsync(UpdateCustomerRequest updateCustomer);
+        public Task<ResultPattern<List<ReturnCustomerResponse>>> GetAllCustomersAsync();
     }
 }
