@@ -77,7 +77,7 @@ O **BarberSystem** oferece um ecossistema completo para a gestão de barbearias,
 
 O Design da Interface está em constante evolução
 
-[![Figma]](https://www.figma.com/site/hTtpLTsvRtb5ITQ4912Z33/BarberSystem_FrontEnd_Project?node-id=0-1&t=ZIAdBgoe6NxVadhN-1)
+[![Figma](https://img.shields.io/badge/Acessar_Protótipo_no_Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/site/hTtpLTsvRtb5ITQ4912Z33/BarberSystem_FrontEnd_Project?node-id=0-1&t=ZIAdBgoe6NxVadhN-1)
 
 ---
 > 💡 *Este projeto está em constante evolução.*
